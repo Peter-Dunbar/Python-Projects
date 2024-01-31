@@ -1,4 +1,24 @@
 import numpy as np
 
-result = np.add(mat1, mat2)
-print(result)
+def matToFile(matrix, filename):
+    with open(filename, 'w') as file:
+        for row in matrix:
+            file.write(' '.join(map(str, row)) + '\n')
+            
+
+mat1 = []
+mat2 = []
+
+with open('pdunbar_mat1.txt', 'r') as file:
+    lines = file.readlines()
+    for line in lines:
+        numbers = list(map(int, line.split()))
+        mat1.append(numbers)
+with open('pdunbar_mat2.txt', 'r') as file:
+    lines = file.readlines()
+    for line in lines:
+        numbers = list(map(int, line.split()))
+        mat2.append(numbers)
+
+answer = np.add(mat1, mat2)
+matToFile(answer, 'pdunbar_p2_Aout12.txt')
