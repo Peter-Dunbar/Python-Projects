@@ -1,0 +1,30 @@
+def addMat(mat1, mat2):
+  rows = len(mat1)
+  cols = len(mat1[0])
+  
+  result = [[0 for _ in range(cols)] for _ in range(rows)]
+
+  for i in range(rows):
+      for j in range(cols):
+          result[i][j] = mat1[i][j] + mat2[i][j]
+
+  return result
+
+mat1 = []
+mat2 = []
+
+with open("pdunbar_mat1.txt") as textFile:
+    for line in textFile:
+        items = [item.strip() for item in line.split('.')]
+        mat1.append(items)
+with open("pdunbar_mat2.txt") as textFile:
+    for line in textFile:
+        items2 = [item.strip() for item in line.split('.')]
+        mat2.append(items2)
+ 
+print(mat1)
+print("\n")
+print(mat2)
+
+answer = addMat(mat1, mat2)
+print(answer)
