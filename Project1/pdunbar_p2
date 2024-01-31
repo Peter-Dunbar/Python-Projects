@@ -1,7 +1,7 @@
 def addMat(mat1, mat2):
   rows = len(mat1)
   cols = len(mat1[0])
-  
+
   result = [[0 for _ in range(cols)] for _ in range(rows)]
 
   for i in range(rows):
@@ -10,7 +10,25 @@ def addMat(mat1, mat2):
 
   return result
 
+def matToFile(matrix, filename):
+    with open(filename, 'w') as file:
+        for row in matrix:
+            file.write(' '.join(map(str, row)) + '\n')
+            
 
+mat1 = []
+mat2 = []
+
+with open('pdunbar_mat1.txt', 'r') as file:
+    lines = file.readlines()
+    for line in lines:
+        numbers = list(map(int, line.split()))
+        mat1.append(numbers)
+with open('pdunbar_mat2.txt', 'r') as file:
+    lines = file.readlines()
+    for line in lines:
+        numbers = list(map(int, line.split()))
+        mat2.append(numbers)
 
 answer = addMat(mat1, mat2)
-print(answer)
+matToFile(answer, 'pdunbar_p2_out12.txt')
