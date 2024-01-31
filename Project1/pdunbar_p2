@@ -1,0 +1,5 @@
+result = [[0 for _ in range(len(gen1))] for _ in range(len(gen1[0]))]
+
+for i in range(len(gen1)):   
+    for j in range(len(gen1[0])):
+        result[i][j] = gen1[i][j] + gen2[i][j]
