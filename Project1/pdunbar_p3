@@ -1,0 +1,4 @@
+import numpy as np
+
+result = np.add(mat1, mat2)
+print(result)
