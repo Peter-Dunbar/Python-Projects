@@ -10,14 +10,14 @@ def convertMssg(fileName):
         hexVal = hex(asciiVal)[2:]
 
         firstDig = int(hexVal, 16) // 16
-        secondDig = int(hexVal, 16) % 16 if hexVal[1:].isdigit() else ord(hexVal[1]) - ord('A') + 10
+        secondDig = int(hexVal, 16) % 16 if len(hexVal) == 2 else ord(hexVal) - ord('A') + 10
 
         result = firstDig * 16 + secondDig
         sequence.append(result)
         
     print("\nSequence:")
     print(sequence)
-    return(sequence)
+    return sequence
 
 def createMatB(sequence):
     cols = 4
