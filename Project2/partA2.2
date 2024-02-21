@@ -1,0 +1,21 @@
+import numpy as np
+fileName = 'input-A22-1.txt'
+
+def readInput(fileName):
+    return 0
+
+def createCipher(matA, matB):
+    cipher = np.dot(matA, matB)
+    return cipher
+
+def decodeMssg(matAInv, cipher):
+    decodeSequence = np.dot(matAInv, cipher)
+    return decodeSe
+    
+
+
+matA = np.array([[1, -1, -1, 1], [2, -3, -5, 4], [-2, -1, -2, 2], [3, -3, -1, 2]])
+matAInv = np.linalg.inv(matA)
+
+matB = readInput(fileName)
+cipher = createCipher(matA, matB)
