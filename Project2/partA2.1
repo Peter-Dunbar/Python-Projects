@@ -1,0 +1,46 @@
+import numpy as np
+
+def convertMssg(fileName):
+    sequence = []
+    with open(fileName, 'r') as file:
+        string = file.read()
+
+    for char in string:
+        asciiVal = ord(char)
+        hexVal = hex(asciiVal)[2:]
+
+        firstDig = int(hexVal, 16) // 16
+        secondDig = int(hexVal, 16) % 16 if hexVal[1:].isdigit() else ord(hexVal[1]) - ord('A') + 10
+
+        result = firstDig * 16 + secondDig
+        sequence.append(result)
+        
+    print("\nSequence:")
+    print(sequence)
+    return(sequence)
+
+def createMatB(sequence):
+    cols = 4
+    rows = (len(sequence) + cols - 1) // cols
+    matrix = [[0] * rows for _ in range(cols)]
+    
+    for i, num in enumerate(sequence):
+        colIndex = i % cols
+        rowIndex = i // cols
+        matrix[colIndex][rowIndex] = num
+    
+    print("\nB Matrix:")
+    print(matrix)
+    return matrix
+
+def createCipher(matA, matB):
+    cipher = np.dot(matA, matB)
+    return cipher
+
+matA = np.array([[1, -1, -1, 1], [2, -3, -5, 4], [-2, -1, -2, 2], [3, -3, -1, 2]])
+fileName = "input-A21-1.txt" 
+sequence = convertMssg(fileName)
+matB = createMatB(sequence)
+cipher = createCipher(matA, matB)
+print("\nCipher Matrix:")
+print(cipher)
