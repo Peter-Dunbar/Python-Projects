@@ -2,7 +2,29 @@ import numpy as np
 fileName = 'input-A22-1.txt'
 
 def readInput(fileName):
-    return 0
+    sequence = []
+    
+    with open(fileName, 'r') as file:
+        for line in file:
+            numbers = list(map(int, line.split()))
+            sequence.extend(numbers)
+        
+    print(sequence)
+    return sequence
+
+def createMatB(sequence):
+    cols = 4
+    rows = (len(sequence) + cols - 1) // cols
+    matrix = [[0] * rows for _ in range(cols)]
+    
+    for i, num in enumerate(sequence):
+        colIndex = i % cols
+        rowIndex = i // cols
+        matrix[colIndex][rowIndex] = num
+    
+    print("\nB Matrix:")
+    print(matrix)
+    return matrix
 
 def createCipher(matA, matB):
     cipher = np.dot(matA, matB)
@@ -10,12 +32,24 @@ def createCipher(matA, matB):
 
 def decodeMssg(matAInv, cipher):
     decodeSequence = np.dot(matAInv, cipher)
-    return decodeSe
+    mssg = []
+    
+    colsNum = len(decodeSequence[0])
+    rowsNum = len(decodeSequence)
+    
+    for col in range(colsNum):
+        for row in range(rowsNum):
+            mssg.append(decodeSequence[row][col])
+    
+    print(mssg)
+    return mssg
     
 
 
 matA = np.array([[1, -1, -1, 1], [2, -3, -5, 4], [-2, -1, -2, 2], [3, -3, -1, 2]])
 matAInv = np.linalg.inv(matA)
 
-matB = readInput(fileName)
+sequence = readInput(fileName)
+matB = createMatB(sequence)
 cipher = createCipher(matA, matB)
+mssg = decodeMssg(matAInv, cipher)
