@@ -9,6 +9,7 @@ def readInput(fileName):
             numbers = list(map(int, line.split()))
             sequence.extend(numbers)
         
+    print("\nRead in Sequence:")
     print(sequence)
     return sequence
 
@@ -48,6 +49,11 @@ def decodeMssg(matAInv, cipher):
 
 matA = np.array([[1, -1, -1, 1], [2, -3, -5, 4], [-2, -1, -2, 2], [3, -3, -1, 2]])
 matAInv = np.linalg.inv(matA)
+
+sequence = readInput(fileName)
+matB = createMatB(sequence)
+cipher = createCipher(matA, matB)
+mssg = decodeMssg(matAInv, cipher)
 
 sequence = readInput(fileName)
 matB = createMatB(sequence)
