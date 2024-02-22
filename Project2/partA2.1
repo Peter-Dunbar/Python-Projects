@@ -1,5 +1,7 @@
 import numpy as np
+fileName = "input-A21-1.txt" # Change this to your input file name
 
+# reads in a mssg and one chr=ar at a time converts it based of of its hex code
 def convertMssg(fileName):
     sequence = []
     with open(fileName, 'r') as file:
@@ -19,6 +21,7 @@ def convertMssg(fileName):
     print(sequence)
     return sequence
 
+# takes the sequence of numbers and loads them into a matrix cols first
 def createMatB(sequence):
     cols = 4
     rows = (len(sequence) + cols - 1) // cols
@@ -33,12 +36,13 @@ def createMatB(sequence):
     print(matrix)
     return matrix
 
+# creates cipher by A*B = C
 def createCipher(matA, matB):
     cipher = np.dot(matA, matB)
     return cipher
 
 matA = np.array([[1, -1, -1, 1], [2, -3, -5, 4], [-2, -1, -2, 2], [3, -3, -1, 2]])
-fileName = "input-A21-1.txt" 
+
 sequence = convertMssg(fileName)
 matB = createMatB(sequence)
 cipher = createCipher(matA, matB)
