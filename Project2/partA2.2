@@ -1,6 +1,7 @@
 import numpy as np
-fileName = 'input-A22-1.txt'
+fileName = 'input-A22-1.txt' # Change this to your input file
 
+# Takes in sequence of numbers from file
 def readInput(fileName):
     sequence = []
     
@@ -13,6 +14,7 @@ def readInput(fileName):
     print(sequence)
     return sequence
 
+# Takes sequence and loads it into a matrix cols first
 def createMatB(sequence):
     cols = 4
     rows = (len(sequence) + cols - 1) // cols
@@ -27,48 +29,56 @@ def createMatB(sequence):
     print(matrix)
     return matrix
 
+# Creates cipher off of A and B
 def createCipher(matA, matB):
     cipher = np.dot(matA, matB)
+    
+    print("\nCipher:")
+    print(cipher)
     return cipher
 
-def decodeMssg(matAInv, cipher):
+# Basied off of the cipher and the inverse of A we get our original sequence
+def decode(matAInv, cipher):
     decodeSequence = np.dot(matAInv, cipher)
     decodeSequence = decodeSequence.round()
-    mssg = []
+    decodeSequence = decodeSequence.astype(int)
+    sequence = []
     
     colsNum = len(decodeSequence[0])
     rowsNum = len(decodeSequence)
     
     for col in range(colsNum):
         for row in range(rowsNum):
-            mssg.append(decodeSequence[row][col])
+            sequence.append(decodeSequence[row][col])
     
-    print(mssg)
-    return mssg
+    print("\nSequence from A^-1 * C:")
+    print(sequence)
+    return sequence
 
+# takes the sequence and makes it back into letters 
 def translate(sequence):
-  mssg = ""
-  for num in sequence:
-    firstDig = num // 16
-    secondDig = num % 16
+    mssg = ""
+    for num in sequence:
+      firstDig = num // 16
+      secondDig = num % 16
 
-    if firstDig < 10:
-        hexChar = str(firstDig)
-    else:
-        hexChar = chr(ord('A') + firstDig - 10)
+      if firstDig < 10:
+          hexChar = str(firstDig)
+      else:
+          hexChar = chr(ord('A') + firstDig - 10)
 
-    if secondDig < 10:
-        hexChar += str(secondDig)
-    else:
-        hexChar += chr(ord('A') + secondDig - 10)
+      if secondDig < 10:
+          hexChar += str(secondDig)
+      else:
+          hexChar += chr(ord('A') + secondDig - 10)
 
-    asciiVal = int(hexChar, 16)
-    char = chr(asciiVal)
-    mssg += char
+      asciiVal = int(hexChar, 16)
+      char = chr(asciiVal)
+      mssg += char
+
+    print("\nTranslated Mssg:")
     print(mssg)
-
-  print(mssg)
-  return 0
+    return 0
 
 
 matA = np.array([[1, -1, -1, 1], [2, -3, -5, 4], [-2, -1, -2, 2], [3, -3, -1, 2]])
@@ -77,5 +87,5 @@ matAInv = np.linalg.inv(matA)
 sequence = readInput(fileName)
 matB = createMatB(sequence)
 cipher = createCipher(matA, matB)
-mssg = decodeMssg(matAInv, cipher)
+mssg = decode(matAInv, cipher)
 translate(mssg)
