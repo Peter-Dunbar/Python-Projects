@@ -33,6 +33,7 @@ def createCipher(matA, matB):
 
 def decodeMssg(matAInv, cipher):
     decodeSequence = np.dot(matAInv, cipher)
+    decodeSequence = decodeSequence.round()
     mssg = []
     
     colsNum = len(decodeSequence[0])
@@ -44,7 +45,30 @@ def decodeMssg(matAInv, cipher):
     
     print(mssg)
     return mssg
-    
+
+def translate(sequence):
+  mssg = ""
+  for num in sequence:
+    firstDig = num // 16
+    secondDig = num % 16
+
+    if firstDig < 10:
+        hexChar = str(firstDig)
+    else:
+        hexChar = chr(ord('A') + firstDig - 10)
+
+    if secondDig < 10:
+        hexChar += str(secondDig)
+    else:
+        hexChar += chr(ord('A') + secondDig - 10)
+
+    asciiVal = int(hexChar, 16)
+    char = chr(asciiVal)
+    mssg += char
+    print(mssg)
+
+  print(mssg)
+  return 0
 
 
 matA = np.array([[1, -1, -1, 1], [2, -3, -5, 4], [-2, -1, -2, 2], [3, -3, -1, 2]])
@@ -54,8 +78,4 @@ sequence = readInput(fileName)
 matB = createMatB(sequence)
 cipher = createCipher(matA, matB)
 mssg = decodeMssg(matAInv, cipher)
-
-sequence = readInput(fileName)
-matB = createMatB(sequence)
-cipher = createCipher(matA, matB)
-mssg = decodeMssg(matAInv, cipher)
+translate(mssg)
