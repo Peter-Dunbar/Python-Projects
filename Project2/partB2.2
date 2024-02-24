@@ -1,1 +1,27 @@
+import numpy as np
 
+def createAugmentedMatrix(flow1, flow2, flow3, flow4):
+    constraint = [
+        [0, 0, 1, -1],
+        [0, 1, -1, 0],
+        [1, -1, 0, 0],
+        [1, 0, 0, -1]
+    ]
+    augMat = []
+    for i in range(len(constraint)):
+        augMat.append(constraint[i] + [eval(f'flow{i + 1}')])
+    return augMat
+
+flow1 = float(input("Enter Flow 1: "))
+flow2 = float(input("Enter Flow 2: "))
+flow3 = float(input("Enter Flow 3: "))
+flow4 = float(input("Enter Flow 4: "))
+
+augMat = createAugmentedMatrix(flow1, flow2, flow3, flow4)
+
+coeff = augMat[:, :-1]
+const = augMat[:, -1]
+solution = np.linalg.solve(coeff, const)
+
+print("Solution:")
+print(solution)
