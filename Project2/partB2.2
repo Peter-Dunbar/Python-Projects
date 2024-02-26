@@ -1,4 +1,5 @@
 import numpy as np
+import scipy as si
 
 # creates Augmented matrix
 def createAugmentedMatrix(flow1, flow2, flow3, flow4):
@@ -21,10 +22,9 @@ flow4 = float(input("Enter Flow 4: "))
 
 augMat = createAugmentedMatrix(flow1, flow2, flow3, flow4)
 
-# splits Aug matrix up so that it can be input into .solve
-coeff = p.array([row[:-1] for row in augMat])
-const = np.array([row[-1] for row in augMat])
-solution = np.linalg.solve(coeff, const)
+
+pl, solution = si.linalg.lu(augMat, permute_l = True)
 
 print("Solution:")
-print(solution)
+for row in solution:
+    print(row)
