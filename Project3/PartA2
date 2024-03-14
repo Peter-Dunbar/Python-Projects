@@ -1,0 +1,40 @@
+import numpy as np
+
+def rotationMatrix(angle, x, y, matA)
+  matW = np.array([[1, 0, x],
+                   [0, 1, y],
+                   [0, 0, 1]])
+  
+  matR = np.array([[np.cos(angle), -np.sin(angle), 0],
+                   [np.sin(angle), np.cos(angle), 0],
+                   [0, 0, 1]])
+  
+  xNeg = x * -1
+  yNeg = y * -1
+  matWneg = np.array([[1, 0, xNeg],
+                      [0, 1, yNeg],
+                      [0, 0, 1]])
+
+  part1 = np.matmul(matW, matR)
+  part2 = np.matmul(part1, matWneg)
+  part3 = np.matmul(part2, matA)
+  return part3
+
+def ShearMatrix(Sh-coord, matA)
+  shearMat = np.array([[1, x-coord],
+                       [0, 1]])
+  return np.matmul(shearMat, matA) 
+
+def ScaleMatrix(Sc-coord, matA)
+  scaleMat = np.array([[x-coord, 0],
+                       [0, 1]])
+  return np.matmul(scaleMat, matA)
+
+def readTransInfo(filename)
+  sequence = []
+
+  with open(fileName, 'r') as file:
+      for line in file:
+          numbers = list(map(int, line.split()))
+          sequence.extend(numbers)
+  return sequence
