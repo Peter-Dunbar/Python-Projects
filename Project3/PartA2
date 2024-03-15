@@ -3,7 +3,7 @@ import numpy as np
 matA = np.array([[0, 6, 5, 1, 3],
                  [0, 0, 3, 3, 9]])
 
-def rotationMatrix(angle, x, y, matA)
+def rotationMatrix(angle, x, y, matA):
   matW = np.array([[1, 0, x],
                    [0, 1, y],
                    [0, 0, 1]])
@@ -29,12 +29,21 @@ def rotationMatrix(angle, x, y, matA)
   
   return twoDpart3
 
-def shearMatrix(Sh-coord, matA)
-  shearMat = np.array([[1, x-coord],
+def shearMatrix(Shcoord, matA):
+  shearMat = np.array([[1, Shcoord],
                        [0, 1]])
   return np.matmul(shearMat, matA) 
 
-def scaleMatrix(Sc-coord, matA)
-  scaleMat = np.array([[x-coord, 0],
+def scaleMatrix(Sccoord, matA):
+  scaleMat = np.array([[Sccoord, 0],
                        [0, 1]])
   return np.matmul(scaleMat, matA)
+
+def readValues(filename):
+  with open(filename, 'r') as file:
+    transVals = file.read().strip()
+    values = transVals.split()
+
+    xCoord, yCoord, angle, Shcoord, Sccoord, Order = values
+
+  return xCoord, yCoord, angle, Shcoord, Sccoord, Order
