@@ -1,3 +1,4 @@
+import math
 import numpy as np
 
 matA = np.array([[0, 6, 5, 1, 3],
@@ -8,8 +9,8 @@ def rotationMatrix(angle, x, y, matA):
                    [0, 1, y],
                    [0, 0, 1]])
   
-  matR = np.array([[np.cos(angle), -np.sin(angle), 0],
-                   [np.sin(angle), np.cos(angle), 0],
+  matR = np.array([[np.cos(angle / 180. * math.pi), -np.sin(angle / 180. * math.pi), 0],
+                   [np.sin(angle / 180. * math.pi), np.cos(angle / 180. * math.pi), 0],
                    [0, 0, 1]])
   
   xNeg = x * -1
