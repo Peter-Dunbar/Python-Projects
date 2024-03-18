@@ -45,6 +45,22 @@ def readValues(filename):
     transVals = file.read().strip()
     values = transVals.split()
 
-    xCoord, yCoord, angle, Shcoord, Sccoord, Order = values
-
+    xCoord, yCoord, angle, Shcoord, Sccoord = map(float, values[:-1])
+  
+  Order = values[-1]
+  print(values)
   return xCoord, yCoord, angle, Shcoord, Sccoord, Order
+
+values = readValues("part_A2_Input.txt")
+xCoord, yCoord, angle, Shcoord, Sccoord, Order = values
+for digit in Order:
+  if digit == "1":
+    matA = rotationMatrix(angle, xCoord, yCoord, matA)
+  elif digit == "2":
+    matA = shearMatrix(Shcoord, matA)
+  elif digit == "3":
+    matA = scaleMatrix(Sccoord, matA)
+  elif digit == "0":
+    print("I skipped a transformation")
+
+print(matA)
