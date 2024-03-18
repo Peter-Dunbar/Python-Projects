@@ -4,6 +4,7 @@ import turtle as t
 
 matA = np.array([[0, 6, 5, 1, 3],
                  [0, 0, 3, 3, 9]])
+filename = "part_A2_Input.txt" #PLEASE CHANGE THIS TO THE NAME OF YOUR FILE
 
 def rotationMatrix(angle, x, y, matA):
   matW = np.array([[1, 0, x],
@@ -13,13 +14,15 @@ def rotationMatrix(angle, x, y, matA):
   matR = np.array([[np.cos(angle / 180. * math.pi), -np.sin(angle / 180. * math.pi), 0],
                    [np.sin(angle / 180. * math.pi), np.cos(angle / 180. * math.pi), 0],
                    [0, 0, 1]])
-  
+
+  #Need to make values negative
   xNeg = x * -1
   yNeg = y * -1
   matWneg = np.array([[1, 0, xNeg],
                       [0, 1, yNeg],
                       [0, 0, 1]])
 
+  #adds a row of place holder ones for .matmul to work properly
   onesRow = np.array([1, 1, 1, 1, 1])
   augMatA = np.vstack((matA, onesRow))
   
@@ -27,6 +30,7 @@ def rotationMatrix(angle, x, y, matA):
   part2 = np.matmul(part1, matWneg)
   part3 = np.matmul(part2, augMatA)
 
+  #delets the place holder ones row
   twoDpart3 = np.delete(part3, 2, 0)
   
   return twoDpart3
@@ -47,33 +51,40 @@ def readValues(filename):
     values = transVals.split()
 
     xCoord, yCoord, angle, Shcoord, Sccoord = map(float, values[:-1])
-  
-  Order = values[-1]
+
+  Order = values[-1] #need to keep Order a string for later use
   print(values)
   return xCoord, yCoord, angle, Shcoord, Sccoord, Order
 
 def drawA(matA):
+  t.setworldcoordinates(-10, -10, 10, 10) #PLEASE CHANGE IF NEEDED TO ZOOM IN ON DRAWING
   t.speed(0)
   t.penup()
-  
+
+  #goes to the starting point
   t.goto(matA[0][0], matA[1][0])
   t.pendown()
-  
-  for i in range(1, len(matA[0])):
-    t.goto(matA[0][i], matA[1][i])
 
+  t.goto(matA[0][3], matA[1][3])
+  t.goto(matA[0][4], matA[1][4])
+  t.goto(matA[0][2], matA[1][2])
+  t.goto(matA[0][3], matA[1][3])
+  t.penup()
+  t.goto(matA[0][1], matA[1][1])
+  t.pendown()
+  t.goto(matA[0][2], matA[1][2])
   t.done()
 
-values = readValues("part_A2_Input.txt")
+values = readValues(filename)
 xCoord, yCoord, angle, Shcoord, Sccoord, Order = values
 for digit in Order:
-  if digit == "1":
+  if digit == "1": #1 means rotate
     matA = rotationMatrix(angle, xCoord, yCoord, matA)
-  elif digit == "2":
+  elif digit == "2": #2 means shear
     matA = shearMatrix(Shcoord, matA)
-  elif digit == "3":
+  elif digit == "3": #3 means scale
     matA = scaleMatrix(Sccoord, matA)
-  elif digit == "0":
+  elif digit == "0": #0 means do nothing
     print("I skipped a transformation")
 
 print(matA)
