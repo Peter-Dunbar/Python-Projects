@@ -27,12 +27,12 @@ def readValues(filename):
     transVals = file.read().strip()
     values = transVals.split()
 
-    R1, R2, R3, R4, E1, E2 = map(int, values)
+    R1, R2, R5, R6, E1, E2 = map(int, values)
   
-  return R1, R2, R3, R4, E1, E2
+  return R1, R2, R5, R6, E1, E2
 
-R1, R2, R3, R4, E1, E2 = readValues(filename)
-mat = createAugMat(R1, R2, R3, R4, E1, E2)
+R1, R2, R5, R6, E1, E2 = readValues(filename)
+mat = createAugMat(R1, R2, R5, R6, E1, E2)
 print("Solutions in terms of i_6: \n")
 print("i_5: i_6 = (%d - (%d * i_5)) / %d\n" % (mat[4][6], mat[4][4], mat[4][5]))
 print("i_4: i_6 = ((%d * i_4) - (%d * i_5)) / %d\n" % (mat[3][3], mat[3][4], mat[3][5]))
