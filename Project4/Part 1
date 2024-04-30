@@ -6,15 +6,18 @@ idenMat = np.array([[1, 0, 0],
                    [0, 1, 0],
                    [0, 0, 1]])
 
+#subtracts the identity mat by the user input matrix & inverts it
 def createVarOne(matD, idenMat):
   matID = np.subtract(idenMat, matD)
   matIDinv = np.linalg.inv(matID)
   return matIDinv
 
+#multiplies the inverse of matID by the user input matrix E
 def createSolution(matIDinv, matE):
   sol = np.matmul(matIDinv, matE)
   return sol
 
+#grabs the user input for the matrix D and E
 with open('pdunbar_matD.txt', 'r') as file:
   lines = file.readlines()
   for line in lines:
