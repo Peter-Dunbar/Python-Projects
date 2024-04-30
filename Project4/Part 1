@@ -1,1 +1,34 @@
+import numpy as np
 
+matD = []
+matE = []
+idenMat = np.array([[1, 0, 0],
+                   [0, 1, 0],
+                   [0, 0, 1]])
+
+def createVarOne(matD, idenMat):
+  matID = np.subtract(idenMat, matD)
+  matIDinv = np.linalg.inv(matID)
+  return matIDinv
+
+def createSolution(matIDinv, matE):
+  sol = np.matmul(matIDinv, matE)
+  return sol
+
+with open('pdunbar_matD.txt', 'r') as file:
+  lines = file.readlines()
+  for line in lines:
+      numbers = list(map(float, line.split()))
+      matD.append(numbers)
+with open('pdunbar_matE.txt', 'r') as file:
+  lines = file.readlines()
+  for line in lines:
+      numbers = list(map(float, line.split()))
+      matE.append(numbers)
+
+matIDinv = createVarOne(matD, idenMat)
+solution = np.matrix.round(createSolution(matIDinv, matE), 2)
+
+print("Solution:")
+for row in solution:
+    print(row)
