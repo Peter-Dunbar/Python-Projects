@@ -34,8 +34,11 @@ def plotGraph(leastSqrs):
 
   #equation of a line
   x = np.linspace(25, 40, 100)
-  y = leastSqrs[0][0] + leastSqrs[0][1]*x
+  hold1 = leastSqrs[0]
+  hold2 = leastSqrs[1]
+  y = hold1 + hold2*x
   plt.plot(x,y)
+  
   plt.show()
 
 xTx = findXTX(x)
