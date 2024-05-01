@@ -44,6 +44,7 @@ def findLeastsquares(xTx,xTy):
   xTxInv = np.linalg.inv(xTx)
   leastSqrs = np.matmul(xTxInv,xTy)
   print(leastSqrs)
+  print("y = ", leastSqrs[0], " + ", leastSqrs[1], " * x")
   return leastSqrs
 
 def plotGraph(leastSqrs):
