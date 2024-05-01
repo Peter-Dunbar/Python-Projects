@@ -5,8 +5,8 @@ matE = []
 idenMat = np.array([[1, 0, 0],
                    [0, 1, 0],
                    [0, 0, 1]])
-filename1 = 'pdunbar_matD.txt'
-filename2 = 'pdunbar_matE.txt'
+filename1 = 'pdunbar_matD.txt' #PLEASE CHANGE TO YOUR FILE NAME
+filename2 = 'pdunbar_matE.txt' #PLEASE CHANGE TO YOUR FILE NAME
 
 #subtracts the identity mat by the user input matrix & inverts it
 def createVarOne(matD, idenMat):
