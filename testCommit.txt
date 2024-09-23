@@ -1,5 +1,0 @@
-Name: Peter Dunbar
-GitName: Peter-Dunbar
-Date: 1/18/2024
-Course: CS2300
-Assignment: GitHub Setup 
