@@ -1,0 +1,61 @@
+import requests
+from bs4 import BeautifulSoup as soup
+import pandas as pd
+import random
+
+#get and parse url for our specific data
+url = "https://www.ef.edu/english-resources/english-vocabulary/top-1000-words/"
+response = requests.get(url)
+parseSoup = soup(response.text, 'html.parser')
+
+#Grabs and Cleans words up
+wordSection = parseSoup.find("div", class_="field-item even")
+allWordsDirty = wordSection.get_text(separator="\n").splitlines()
+allWordsClean = [word.strip() for word in allWordsDirty if word.strip()]
+
+#Puts words into a data frame in order to push to a file
+words = {'Common Words': []}
+wordsDf = pd.DataFrame(words)
+
+#puts all the words into an excel file
+for word in allWordsClean[1:]:
+    wordsDf = wordsDf.append({'Common Words': word}, ignore_index=True)
+wordsDf.to_excel('words.xlsx', index=False)
+
+#reads from that file to ge our list of words back
+excelSheet = pd.read_excel('words.xlsx', sheet_name='Sheet1', engine='openpyxl')
+thousWords = excelSheet['Common Words']
+
+#TASK 1 GAME CODE
+
+#Generates a word from the file and creates a _ version of the word
+scoreWord = ''
+randNum = random.randint(0, len(thousWords) - 1)  # Get a random index from the words list
+secretWord = thousWords[randNum]
+scoreWord = '_' * len(secretWord)
+
+#While you still have 5 chances or you haven't won yet keep playing
+winFlag = False
+misCount = 0
+while misCount < 5 and not winFlag:
+    #asks user for input
+    print(f"{scoreWord} \n")
+    userInput = input("Please make a one letter Guess: ").lower()
+
+    #If letter is in word replace the _ with userinput letter || but if miss -1 on mis count
+    if userInput in secretWord:
+        scoreWord = ''.join([userInput if secretWord[i] == userInput else scoreWord[i] for i in range(len(secretWord))])
+    else:
+        misCount += 1
+        print(f"You have {5 - misCount} attempts left.")
+
+    #if there are no more _ spaces you win
+    if "_" not in scoreWord:
+        winFlag = True
+
+if winFlag:
+    print(f"{scoreWord} \n")
+    print("YOU WON!!!!")
+else:
+    print(f"{scoreWord} \n")
+    print("YOU LOST!!!! The word was:", secretWord)
